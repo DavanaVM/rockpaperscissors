@@ -30,11 +30,39 @@ function playRound(player, computer){
     }
 }
 
-  let playerSelection = prompt("Rock Paper or Scissors").toLowerCase();
-  while(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors"){
-    playerSelection = prompt("You need to select Rock Paper or Scissors!").toLowerCase();
-  }
-  const computerSelection = getComputerChoice();
+let playerchoice = ""
+
+document.addEventListener('click', (e) => {
+    if(e.target.id === "rock" || e.target.id === "paper" || e.target.id === "scissors"){
+        playerchoice = (e.target.id)
+        choicedisp.textContent = "Your choice: " + playerchoice
+    }
+});
+  
+const main = document.querySelector("#main")
+let humanscore = 0;
+let botscore = 0;
+let choicedisp = document.createElement("p");
+choicedisp.textContent = "Please select one"
+main.appendChild(choicedisp)
+const btn = document.createElement("button")
+btn.textContent = "Confirm Choice"
+main.appendChild(btn)
+
+btn.addEventListener('click', (e) =>{
+    let compchoice = getComputerChoice()
+    let result = playRound(playerchoice, compchoice)
+    choicedisp.textContent =  result + " computer chose: " +  compchoice;
+
+    if(result === "You lose!"){
+        botscore++
+    }
+    else if(result == "You win!"){
+        humanscore++
+    }
+})
+
+  /*const computerSelection = getComputerChoice();
   console.log(playRound(playerSelection, computerSelection));
 
-  console.log(computerSelection)
+  console.log(computerSelection)*/
