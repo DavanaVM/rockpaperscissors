@@ -30,6 +30,9 @@ function playRound(player, computer){
     }
 }
 
+let humanscore = 0;
+let botscore = 0;
+
 let playerchoice = ""
 
 document.addEventListener('click', (e) => {
@@ -37,30 +40,39 @@ document.addEventListener('click', (e) => {
         playerchoice = (e.target.id)
         choicedisp.textContent = "Your choice: " + playerchoice
     }
+    if(humanscore === 5 || botscore === 5){
+        main.innerHTML = "The winner is " + ((humanscore === 5) ? "You" : "The Bot");
+    }
 });
   
 const main = document.querySelector("#main")
-let humanscore = 0;
-let botscore = 0;
+
 let choicedisp = document.createElement("p");
 choicedisp.textContent = "Please select one"
 main.appendChild(choicedisp)
 const btn = document.createElement("button")
 btn.textContent = "Confirm Choice"
 main.appendChild(btn)
-
+let scoreboard = document.createElement("p")
 btn.addEventListener('click', (e) =>{
     let compchoice = getComputerChoice()
     let result = playRound(playerchoice, compchoice)
     choicedisp.textContent =  result + " computer chose: " +  compchoice;
-
+    
     if(result === "You lose!"){
         botscore++
     }
     else if(result == "You win!"){
         humanscore++
     }
+    scoreboard.textContent = `Your Score: ${humanscore}, Bot Score: ${botscore}`
 })
+
+
+
+main.appendChild(scoreboard)
+
+
 
   /*const computerSelection = getComputerChoice();
   console.log(playRound(playerSelection, computerSelection));
